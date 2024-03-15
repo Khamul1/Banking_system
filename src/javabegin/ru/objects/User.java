@@ -2,31 +2,36 @@ package javabegin.ru.objects;
 
 import javabegin.ru.interfaces.IUser;
 
+import java.util.Map;
+
 public class User implements IUser {
 
   private String id;
-  private int balance;
+  private String name;
+  private Map<String, Integer> balances;
 
-  public User(String id, String name, int balance) {
+  public User(String id, String name, Map<String, Integer> balances) {
     this.id = id;
-    this.balance = balance;
+    this.name = name;
+    this.balances = balances;
   }
+
 
   @Override
   public String getId() {
     return id;
   }
 
-  // Опционально можно добавить метод getBalance() для получения текущего баланса
+  @Override
   public int getBalance() {
-    return balance;
+    return 0;
   }
 
-  public void setBalance(int balance) {
-    this.balance = balance;
+  public int getBalance(String currency) {
+    return balances.getOrDefault(currency, 0);
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setBalance(String currency, int balance) {
+    balances.put(currency, balance);
   }
 }
