@@ -1,24 +1,39 @@
 package javabegin.ru.objects;
 
 import javabegin.ru.interfaces.IBank;
+import javabegin.ru.interfaces.IUser;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bank implements IBank<User> {
-  private Map<String, User> users;
+  private List<User> users;
+  private String name;
 
-  public Bank(Map<String, User> users) {
+
+  public Bank(String name, List<User> users) {
     this.users = users;
+    this.name = name;
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
 
   @Override
   public void addUser(User user) {
-    users.put(user.getId(), user);
+    users.add(user);
   }
 
   @Override
   public void removeUser(User user) {
-    users.remove(user.getId());
+    users.remove(user);
   }
 
   @Override
@@ -61,6 +76,7 @@ public class Bank implements IBank<User> {
   public void transferMoney(User user1, String currency1, User user2, String currency2, int amount) {
     if (user1 != null && user2 != null && user1.getBalance(currency1) >= amount) {
       withdrawMoney(user1, currency1, amount);
+
       depositMoney(user2, currency2, amount);
     }
   }
