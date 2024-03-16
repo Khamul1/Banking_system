@@ -1,9 +1,6 @@
 package javabegin.ru.interfaces;
 
-import javabegin.ru.objects.User;
-
 public interface IBank<T extends IUser> {
-
     void addUser(T user); // добавить пользователя
     void removeUser(T user); // удалить пользователя
     void depositMoney(T user, int amount); // Банк обрабатывает вклад пользователя
