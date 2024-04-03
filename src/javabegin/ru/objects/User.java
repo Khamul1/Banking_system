@@ -10,6 +10,8 @@ public class User implements IUser {
   private String id;
   private String name;
 
+
+
   private Map<String, Integer> balances;
 
   public User(String id, String name) {

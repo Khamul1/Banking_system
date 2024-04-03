@@ -1,39 +1,53 @@
 package javabegin.ru.objects;
 
 import javabegin.ru.interfaces.IBank;
-import javabegin.ru.interfaces.IUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Bank implements IBank<User> {
   private List<User> users;
+  private Map<User, List<Account>> accounts; // добавлено поле для хранения счетов пользователей
+
   private String name;
 
-
   public Bank(String name, List<User> users) {
+    this.name = name;
     this.users = users;
-    this.name = name;
+    this.accounts = new HashMap<>();
   }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
 
   @Override
   public void addUser(User user) {
     users.add(user);
+    accounts.put(user, new ArrayList<>()); // создаем пустой список счетов для нового пользователя
+  }
+
+  @Override
+  public void depositMoney(User user, String currency, double amount) {
+    if (user != null && amount > 0) {
+      List<Account> userAccounts = accounts.get(user); // получаем список счетов пользователя
+      for (Account existingAccount : userAccounts) {
+        if (existingAccount.getCurrency().equals(currency)) {
+          // У пользователя уже есть счет с такой же валютой
+          return;
+        }
+      }
+
+      double currentBalance = user.getBalance(currency);
+      user.setBalance(currency, (int) (currentBalance + amount));
+
+      Account newAccount = new Account(currency, amount); // создаем новый объект Account
+      userAccounts.add(newAccount);
+    }
   }
 
   @Override
   public void removeUser(User user) {
     users.remove(user);
+    accounts.remove(user);
   }
 
   @Override
@@ -84,5 +98,13 @@ public class Bank implements IBank<User> {
   @Override
   public Integer queryBalance(User user, String currency) {
     return user.getBalance(currency);
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

@@ -31,9 +31,9 @@ public class Main {
 
         // Создание и запуск сценариев транзакций
         Bank bank = new Bank("Dodge", users);
-        bank.setName("Dodge");
-        bank.withdrawMoney(user1, "USD", 500); // Пользователь 1 снимает 500
-        bank.depositMoney(user2, "RUB", 1000); // Пользователь 2 добавляет 750
+        bank.withdrawMoney(user1, "USD", 500); // Пользователь 1 снимает 500;
+
+        bank.depositMoney(user2, "RUB", 1000); // Пользователь 2 добавляет 1000
         bank.transferMoney(user1, "USD", user2, "RUB", 250); // Пользователь 1 переводит 250 пользователю 2
 
         // Вывод названия банка
