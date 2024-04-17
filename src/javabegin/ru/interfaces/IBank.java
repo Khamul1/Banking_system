@@ -3,8 +3,10 @@ package javabegin.ru.interfaces;
 import javabegin.ru.objects.User;
 
 public interface IBank<T extends IUser> {
-
     void addUser(T user); // добавить пользователя
+
+    void depositMoney(User user, String currency, double amount);
+
     void removeUser(T user); // удалить пользователя
     void depositMoney(T user, int amount); // Банк обрабатывает вклад пользователя
     void withdrawMoney(T user, int amount); // Банк обратаывает снятие денег
